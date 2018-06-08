@@ -1,0 +1,101 @@
+---
+swagger: "2.0"
+info:
+  description: "Documentation automatically generated"
+  version: "1.5.3"
+  title: "Visits Service Api Documentation"
+  contact:
+    name: "Kennedy Torkura"
+    url: "kennedy.wordpress.com"
+    email: "run2obtain@gmail.com"
+host: "localhost:40528"
+basePath: "/"
+tags:
+- name: "visit-resource"
+  description: "Visit Resource"
+paths:
+  /owners/*/pets/{petId}/visits:
+    get:
+      tags:
+      - "visit-resource"
+      summary: "visits"
+      operationId: "visitsUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "petId"
+        in: "path"
+        description: "petId"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Visit"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      x-swagger-router-controller: "VisitResource"
+    post:
+      tags:
+      - "visit-resource"
+      summary: "create"
+      operationId: "createUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "visit"
+        description: "visit"
+        required: true
+        schema:
+          $ref: "#/definitions/Visit"
+      - name: "petId"
+        in: "path"
+        description: "petId"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        201:
+          description: "Created"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      x-swagger-router-controller: "VisitResource"
+definitions:
+  Visit:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+      id:
+        type: "integer"
+        format: "int32"
+      petId:
+        type: "integer"
+        format: "int32"
+    example:
+      date: "2000-01-23T04:56:07.000+00:00"
+      petId: 6
+      description: "description"
+      id: 0
