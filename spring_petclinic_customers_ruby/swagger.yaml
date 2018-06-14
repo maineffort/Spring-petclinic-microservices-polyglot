@@ -1,0 +1,349 @@
+---
+swagger: "2.0"
+info:
+  description: "Documentation automatically generated"
+  version: "1.5.3"
+  title: "Customers Service Api Documentation"
+  contact:
+    name: "Kennedy Torkura"
+    url: "kennedy.wordpress.com"
+    email: "run2obtain@gmail.com"
+host: "localhost:46712"
+basePath: "/"
+tags:
+- name: "owner-resource"
+  description: "Owner Resource"
+- name: "pet-resource"
+  description: "Pet Resource"
+paths:
+  /owners:
+    get:
+      tags:
+      - "owner-resource"
+      summary: "findAll"
+      operationId: "findAllUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Owner"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+    post:
+      tags:
+      - "owner-resource"
+      summary: "createOwner"
+      operationId: "createOwnerUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "owner"
+        description: "owner"
+        required: true
+        schema:
+          $ref: "#/definitions/Owner"
+      responses:
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /owners/*/pets/{petId}:
+    get:
+      tags:
+      - "pet-resource"
+      summary: "findPet"
+      operationId: "findPetUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "petId"
+        in: "path"
+        description: "petId"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PetDetails"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+    put:
+      tags:
+      - "pet-resource"
+      summary: "processUpdateForm"
+      operationId: "processUpdateFormUsingPUT"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "petRequest"
+        description: "petRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/PetRequest"
+      responses:
+        201:
+          description: "Created"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /owners/{ownerId}:
+    get:
+      tags:
+      - "owner-resource"
+      summary: "findOwner"
+      operationId: "findOwnerUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "ownerId"
+        in: "path"
+        description: "ownerId"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Owner"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+    put:
+      tags:
+      - "owner-resource"
+      summary: "updateOwner"
+      operationId: "updateOwnerUsingPUT"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - name: "ownerId"
+        in: "path"
+        description: "ownerId"
+        required: true
+        type: "integer"
+        format: "int32"
+      - in: "body"
+        name: "ownerRequest"
+        description: "ownerRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/Owner"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Owner"
+        201:
+          description: "Created"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /owners/{ownerId}/pets:
+    post:
+      tags:
+      - "pet-resource"
+      summary: "processCreationForm"
+      operationId: "processCreationFormUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters:
+      - in: "body"
+        name: "petRequest"
+        description: "petRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/PetRequest"
+      - name: "ownerId"
+        in: "path"
+        description: "ownerId"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        201:
+          description: "Created"
+        204:
+          description: "No Content"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+  /petTypes:
+    get:
+      tags:
+      - "pet-resource"
+      summary: "getPetTypes"
+      operationId: "getPetTypesUsingGET"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PetType"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+definitions:
+  Owner:
+    type: "object"
+    properties:
+      address:
+        type: "string"
+      city:
+        type: "string"
+      firstName:
+        type: "string"
+      id:
+        type: "integer"
+        format: "int32"
+      lastName:
+        type: "string"
+      pets:
+        type: "array"
+        items:
+          $ref: "#/definitions/Pet"
+      telephone:
+        type: "string"
+    example:
+      pets:
+      - name: "name"
+        id: 6
+        type:
+          name: "name"
+          id: 1
+        birthDate: "2000-01-23T04:56:07.000+00:00"
+      - name: "name"
+        id: 6
+        type:
+          name: "name"
+          id: 1
+        birthDate: "2000-01-23T04:56:07.000+00:00"
+      firstName: "firstName"
+      lastName: "lastName"
+      address: "address"
+      city: "city"
+      telephone: "telephone"
+      id: 0
+  PetRequest:
+    type: "object"
+    properties:
+      birthDate:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      typeId:
+        type: "integer"
+        format: "int32"
+    example:
+      name: "name"
+      typeId: 6
+      id: 0
+      birthDate: "2000-01-23T04:56:07.000+00:00"
+  Pet:
+    type: "object"
+    properties:
+      birthDate:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+      type:
+        $ref: "#/definitions/PetType"
+    example:
+      name: "name"
+      id: 6
+      type:
+        name: "name"
+        id: 1
+      birthDate: "2000-01-23T04:56:07.000+00:00"
+  PetDetails:
+    type: "object"
+    properties:
+      birthDate:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      owner:
+        type: "string"
+      type:
+        $ref: "#/definitions/PetType"
+  PetType:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+    example:
+      name: "name"
+      id: 1
