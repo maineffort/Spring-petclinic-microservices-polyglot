@@ -1,0 +1,67 @@
+---
+swagger: "2.0"
+info:
+  description: "Documentation automatically generated"
+  version: "1.5.3"
+  title: "Vets Service Api Documentation"
+  contact:
+    name: "Kennedy Torkura"
+    url: "kennedy.wordpress.com"
+    email: "run2obtain@gmail.com"
+host: "localhost:42308"
+basePath: "/"
+tags:
+- name: "vet-resource"
+  description: "Vet Resource"
+paths:
+  /vets:
+    get:
+      tags:
+      - "vet-resource"
+      summary: "showResourcesVetList"
+      operationId: "show_resources_vet_list_using_get"
+      consumes:
+      - "application/json"
+      produces:
+      - "*/*"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Vet"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Not Found"
+      x-swagger-router-controller: "swagger_server.controllers.vet_resource_controller"
+definitions:
+  Specialty:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+  Vet:
+    type: "object"
+    properties:
+      firstName:
+        type: "string"
+      id:
+        type: "integer"
+        format: "int32"
+      lastName:
+        type: "string"
+      nrOfSpecialties:
+        type: "integer"
+        format: "int32"
+      specialties:
+        type: "array"
+        items:
+          $ref: "#/definitions/Specialty"
